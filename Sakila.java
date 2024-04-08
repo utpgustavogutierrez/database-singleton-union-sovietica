@@ -36,10 +36,4 @@ public class Sakila {
         }
     }
 
-    
 
-    public static void main(String[] args) {
-        Sakila sakila = Sakila.getInstance();
-        sakila.closeConnection();
-    }
-}
