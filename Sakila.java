@@ -11,7 +11,7 @@ public class Sakila {
 
     private Sakila() {
         try {
-            // create a database connection
+           
             connection = DriverManager.getConnection("jdbc:sqlite:./sqlite-sakila.db");
             connection.createStatement().executeUpdate("PRAGMA foreign_keys = ON"); // Enable foreign key support
         } catch (SQLException e) {
@@ -36,7 +36,7 @@ public class Sakila {
         }
     }
 
-    // You can add more methods here for executing different queries
+    
 
     public static void main(String[] args) {
         Sakila sakila = Sakila.getInstance();
