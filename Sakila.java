@@ -19,7 +19,7 @@ public class Sakila {
         }
     }
 
-    public static synchronized Sakila getInstance() {
+    public static  Sakila getInstance() {
         if (instance == null) {
             instance = new Sakila();
         }
