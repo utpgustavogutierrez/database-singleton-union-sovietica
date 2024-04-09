@@ -11,7 +11,7 @@ public class Sakila {
 
     private Sakila() {
         try {
-           
+            // create a database connection
             connection = DriverManager.getConnection("jdbc:sqlite:./sqlite-sakila.db");
             connection.createStatement().executeUpdate("PRAGMA foreign_keys = ON"); // Enable foreign key support
         } catch (SQLException e) {
@@ -19,7 +19,7 @@ public class Sakila {
         }
     }
 
-    public static  Sakila getInstance() {
+    public static synchronized Sakila getInstance() {
         if (instance == null) {
             instance = new Sakila();
         }
@@ -35,5 +35,26 @@ public class Sakila {
             }
         }
     }
+
+    public void executeQuery() {
+        try (Statement statement = connection.createStatement()) {
+            statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+            ResultSet rs = statement.executeQuery("SELECT * FROM film");
+            while (rs.next()) {
+                // read the result set
+                System.out.println("title = " + rs.getString("title"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
+    public static void main(String[] args) {
+        Sakila sakila = Sakila.getInstance();
+        sakila.executeQuery();
+        sakila.closeConnection();
+    }
+}
 
 
